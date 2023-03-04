@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { defineUser, getUser, connectToMongo } from "./user";
 import { UserLocation } from "../testing";
 
-type Data = { username: string } | { error: string };
+type Data = { points: number } | { error: string };
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,6 +15,7 @@ export default async function handler(
   // TODO check the users guess against the database
   const location = JSON.parse(req.body).location as UserLocation;
   console.log(location);
+  const points = 5;
 
   // decrement number of guesses left
   await connectToMongo(res);
@@ -24,5 +25,5 @@ export default async function handler(
   );
 
   mongoose.connection.close();
-  res.status(200).json({ username: username });
+  res.status(200).json({ points: points });
 }

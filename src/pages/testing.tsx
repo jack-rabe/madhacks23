@@ -1,4 +1,4 @@
-import { User } from "./api/user";
+import { User } from "./api/user/create";
 
 export default function Test() {
   return (
@@ -12,6 +12,9 @@ export default function Test() {
       >
         submit guess
       </button>
+      <button className={"btn"} onClick={getAllUsers}>
+        get all users
+      </button>
     </div>
   );
 }
@@ -22,7 +25,7 @@ async function createUser(username: string) {
   localStorage.setItem("username", username);
   localStorage.setItem("password", password);
 
-  const data = await fetch("/api/user", {
+  const data = await fetch("/api/user/create", {
     method: "POST",
     body: JSON.stringify(getUser()),
   });
@@ -57,4 +60,10 @@ function getUser(): User {
     console.error("username or password not set");
   }
   return { username: username, password: password };
+}
+
+async function getAllUsers() {
+  const data = await fetch("/api/user/users");
+  const res = await data.json();
+  console.log(res);
 }

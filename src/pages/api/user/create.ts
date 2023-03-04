@@ -34,7 +34,7 @@ export async function connectToMongo(res: NextApiResponse) {
 
 export type User = {
   username: string;
-  password: string;
+  password?: string;
   score?: number;
   guessesLeft?: number;
 };
