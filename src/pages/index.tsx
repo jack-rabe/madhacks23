@@ -1,3 +1,5 @@
+import MyMap from "../components/MyMap";
+
 export default function Home() {
-  return <div>hi</div>;
+  return <><MyMap></MyMap></>
 }
