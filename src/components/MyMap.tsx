@@ -11,8 +11,8 @@ const MyMap = () => {
     const [long, setLong] = useState(-89.4125);
 
     const mapContainerStyle = {
-        height: "300px",
-        width: "100%"
+        height: "100vh",
+        width: "90%"
     };
       
 
@@ -38,9 +38,6 @@ const MyMap = () => {
             <h1>Google Maps</h1>
             <p>Current location: {lat}, {long}</p>
             <GoogleMap zoom={15} center={{lat: lat, lng: long}} mapContainerStyle={mapContainerStyle}>
-                <MarkerF position={{lat:lat, lng:long}}/>
-            </GoogleMap>
-            <GoogleMap zoom={15} center={{lat: lat, lng: long}} mapContainerStyle={mapContainerStyle}>
                 <StreetViewPanorama
                     position={{lat: lat, lng: long}}
                     visible={true}
@@ -49,6 +46,10 @@ const MyMap = () => {
                     }}
                 />
             </GoogleMap>
+            <GoogleMap zoom={15} center={{lat: lat, lng: long}} mapContainerStyle={mapContainerStyle}>
+                <MarkerF position={{lat:lat, lng:long}}/>
+            </GoogleMap>
+            
             <Button onClick={getLocation}>Get Current Location</Button>
         </>
     }
