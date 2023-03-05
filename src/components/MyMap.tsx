@@ -59,8 +59,8 @@ const MyMap = function F() {
       console.log("You win");
     } else {
       console.log("Try again");
+      console.log(distance_left);
     }
-    //console.log(distance_left);
   }
 
   if (isLoaded) {

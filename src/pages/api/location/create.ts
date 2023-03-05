@@ -8,7 +8,7 @@ export default async function handler(
 ) {
   const UserLocation = defineLocation();
   await connectToMongo(res);
-  await UserLocation.create({ latitude: 10, longitude: 20 });
+  await UserLocation.create({ latitude: 43.073382, longitude: -89.406353 });
 
   mongoose.connection.close();
   res.status(200).json({ status: "success" });
