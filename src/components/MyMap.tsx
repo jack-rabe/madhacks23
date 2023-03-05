@@ -103,8 +103,8 @@ const MyMap = function F() {
   let button;
   if (buttonClickable) {
     button = (
-      <Button
-        className="w-full mt-8 rounded-lg bg-red-800"
+      <button
+        className="w-full text-xl font-bold py-4 mt-8 rounded-lg bg-red-800"
         onClick={
           buttonClickable
             ? submitGuess
@@ -116,18 +116,18 @@ const MyMap = function F() {
         {remainingAttempts >= 3
           ? "Guess using your current location"
           : `You are ${distanceRemaining}m away!`}
-      </Button>
+      </button>
     );
   } else {
     button = (
-      <Button
-        className="w-full mt-8 bg-red-800"
+      <button
+        className="w-full text-xl font-bold py-4 mt-8 rounded-lg bg-red-800"
         onClick={() => {
           alert("Calculating distance from last guess...");
         }}
       >
         ...
-      </Button>
+      </button>
     );
   }
 
@@ -172,9 +172,6 @@ const MyMap = function F() {
                   onPositionChanged={() => {
                     console.log("Position changed");
                   }}
-                  // onPovChanged={() => {
-                  //   console.log("POV changed");
-                  // }}
                   options={{
                     linksControl: false,
                     enableCloseButton: false,

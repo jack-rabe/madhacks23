@@ -16,7 +16,9 @@ export default function Leaderboard() {
       setUsers(fetchedUsers);
       const distance = window.location.href.split("?")[1];
       if (distance) {
-        alert(`Good job, you were ${distance} meters away :)`);
+        setTimeout(() => {
+          alert(`Good job, you were ${distance} meters away :)`);
+        }, 1000);
       }
     }
     fetchUsers();
