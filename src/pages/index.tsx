@@ -28,7 +28,7 @@ export default function Home() {
           }}
         ></input>
       </div>
-      <video width="100%" height="100%" preload="auto">
+      <video width="100%" height="100%"  preload='auto' autoPlay controls>
         <source src="/videos/videoslow.mp4" type="video/mp4" />
       </video>
     </>
