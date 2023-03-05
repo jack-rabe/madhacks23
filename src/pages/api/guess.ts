@@ -17,7 +17,7 @@ export default async function handler(
 
   await connectToMongo(res);
   const answer = await UserLocation.findOne();
-  const distance = getDistanceFromLatLonInKm(
+  const distance = getDistance(
     locationGuess.latitude,
     locationGuess.longitude,
     answer.latitude,
@@ -34,12 +34,7 @@ export default async function handler(
 }
 
 // see https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
-function getDistanceFromLatLonInKm(
-  lat1: number,
-  lon1: number,
-  lat2: number,
-  lon2: number
-) {
+function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2 - lat1); // deg2rad below
   var dLon = deg2rad(lon2 - lon1);
@@ -51,7 +46,7 @@ function getDistanceFromLatLonInKm(
       Math.sin(dLon / 2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c; // Distance in km
-  return d;
+  return Math.round(d * 1000);
 }
 
 function deg2rad(deg: number) {
