@@ -25,6 +25,7 @@ const MyMap = function F() {
   const [buttonClickable, setButtonClickable] = useState(true);
 
   const [remainingAttempts, setRemainingAttempts] = useState(MAX_ATTEMPTS);
+  const [distanceRemaining, setDistanceRemaining] = useState(null);
 
   useEffect(() => {
     async function fetchWinningCoords() {
@@ -88,6 +89,7 @@ const MyMap = function F() {
     const data = await res.json();
     const attempts = data.attempts;
     const distance = data.distance;
+    setDistanceRemaining(distance);
     console.log(attempts);
 
     if (distance < 10) {
@@ -149,6 +151,12 @@ const MyMap = function F() {
           <div
             className={remainingAttempts >= 1 ? "attempt-left" : "attempt-used"}
           ></div>
+        </div>
+
+        <div>
+          {distanceRemaining != null && (
+            <p>Distance Remaining: {distanceRemaining} m</p>
+          )}
         </div>
 
         <div className="flex justify-center">
