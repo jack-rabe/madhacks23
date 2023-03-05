@@ -98,58 +98,59 @@ const MyMap = function F() {
     return (
       <>
         {winLoaded ? (
-          <div className="flex justify-center items-center">
-            <GoogleMap
-              zoom={15}
-              center={{ lat: winLat, lng: winLng }}
-              mapContainerStyle={streetViewContainerStyle}
-            >
-              <StreetViewPanorama
-                // @ts-ignore
-                position={{ lat: winLat, lng: winLng }}
-                visible={true}
-                onLoad={() => {
-                  console.log("Street View loaded");
-                  console.log(winLat);
-                  console.log(winLng);
-                }}
-                onPositionChanged={() => {
-                  console.log("Position changed");
-                }}
-                // onPovChanged={() => {
-                //   console.log("POV changed");
-                // }}
-                options={{
-                  linksControl: false,
-                  enableCloseButton: false,
-                  motionTrackingControl: true,
-                  addressControl: false,
-                }}
-              />
-            </GoogleMap>
+          <div>
+            <div className="flex justify-center items-center">
+              <GoogleMap
+                zoom={15}
+                center={{ lat: winLat, lng: winLng }}
+                mapContainerStyle={streetViewContainerStyle}
+              >
+                <StreetViewPanorama
+                  // @ts-ignore
+                  position={{ lat: winLat, lng: winLng }}
+                  visible={true}
+                  onLoad={() => {
+                    console.log("Street View loaded");
+                    console.log(winLat);
+                    console.log(winLng);
+                  }}
+                  onPositionChanged={() => {
+                    console.log("Position changed");
+                  }}
+                  // onPovChanged={() => {
+                  //   console.log("POV changed");
+                  // }}
+                  options={{
+                    linksControl: false,
+                    enableCloseButton: false,
+                    motionTrackingControl: true,
+                    addressControl: false,
+                  }}
+                />
+              </GoogleMap>
+            </div>
+            <div className="flex">
+              <p className="text-lg font-white m-3">Remaining Attempts</p>
+              <div
+                className={`m-2 ${
+                  remainingAttempts >= 3 ? "attempt-left" : "attempt-used"
+                }`}
+              ></div>
+              <div
+                className={`m-2 ${
+                  remainingAttempts >= 2 ? "attempt-left" : "attempt-used"
+                }`}
+              ></div>
+              <div
+                className={`m-2 ${
+                  remainingAttempts >= 1 ? "attempt-left" : "attempt-used"
+                }`}
+              ></div>
+            </div>
           </div>
         ) : (
           <div className="text-center font-bold text-4xl">Loading ...</div>
         )}
-
-        <div className="flex">
-          <p className="text-lg font-white m-3">Remaining Attempts</p>
-          <div
-            className={`m-2 ${
-              remainingAttempts >= 3 ? "attempt-left" : "attempt-used"
-            }`}
-          ></div>
-          <div
-            className={`m-2 ${
-              remainingAttempts >= 2 ? "attempt-left" : "attempt-used"
-            }`}
-          ></div>
-          <div
-            className={`m-2 ${
-              remainingAttempts >= 1 ? "attempt-left" : "attempt-used"
-            }`}
-          ></div>
-        </div>
 
         <div>
           {distanceRemaining != null && (
