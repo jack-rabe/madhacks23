@@ -4,6 +4,8 @@ import { defineUser, getUser, connectToMongo } from "./user/create";
 import { UserLocation } from "../testing";
 import { defineLocation } from "./location/create";
 
+var distanceCalc = require("gps-distance");
+
 type Data = { distance: number; guessesLeft: number } | { error: string };
 
 export default async function handler(
@@ -27,12 +29,21 @@ export default async function handler(
   }
 
   const answer = await UserLocation.findOne();
-  const distance = getDistance(
+  // const distance = getDistance(
+  //   locationGuess.latitude,
+  //   locationGuess.longitude,
+  //   answer.latitude,
+  //   answer.longitude
+  // );
+
+  let distance = distanceCalc(
     locationGuess.latitude,
     locationGuess.longitude,
     answer.latitude,
     answer.longitude
   );
+  distance = (distance * 1000).toFixed(2);
+
   // decrement number of guesses left
   await User.findOneAndUpdate(
     { username: username, password: password },

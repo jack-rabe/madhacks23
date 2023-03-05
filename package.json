@@ -17,6 +17,7 @@
     "daisyui": "^2.51.3",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
+    "gps-distance": "^0.0.4",
     "html5-geolocation": "^2.0.0",
     "mongoose": "^7.0.0",
     "next": "13.2.3",
