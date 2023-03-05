@@ -22,6 +22,9 @@ export default function Test() {
       >
         get all users
       </button>
+      <button className="btn" onClick={createLocation}>
+        create location
+      </button>
     </div>
   );
 }
@@ -57,4 +60,7 @@ async function guess(location: UserLocation) {
   });
   const res = await data.json();
   console.log(res);
+}
+function createLocation() {
+  fetch("/api/location/create").then(() => console.log("location created"));
 }

@@ -23,16 +23,13 @@ const MyMap = () => {
 
   function submitGuess() {
     if (navigator.geolocation) {
-      const x = navigator.geolocation.getCurrentPosition(changeCoords, null, {
-        maximumAge: 100 * 1000,
-      });
+      const x = navigator.geolocation.getCurrentPosition(changeCoords);
     } else {
       alert("Geolocation is not supported by this browser.");
     }
   }
 
   async function changeCoords(position: any) {
-    console.log("hi");
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     const { username, password } = getUser(localStorage);
