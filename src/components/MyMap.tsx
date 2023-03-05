@@ -1,4 +1,4 @@
-import { use, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ScoreTracker from "./ScoreTracker";
 import { getUser } from "../pages/leaderboard";
 import { Button } from "react-bootstrap";
@@ -7,6 +7,7 @@ import {
   StreetViewPanorama,
   useLoadScript,
 } from "@react-google-maps/api";
+import { useRouter } from "next/router";
 
 const MAX_ATTEMPTS = 3;
 
@@ -15,9 +16,13 @@ const MyMap = function F() {
     googleMapsApiKey: "AIzaSyB5Ze47MCUqSpm6JwVHGjwbeUsOlPrpAO0",
   });
 
+  const router = useRouter();
+
   const [winLat, setWinLat] = useState(43.0766);
   const [winLng, setWinLong] = useState(-89.4125);
   const [winLoaded, setWinLoaded] = useState(false);
+
+  const [buttonClickable, setButtonClickable] = useState(true);
 
   const [remainingAttempts, setRemainingAttempts] = useState(MAX_ATTEMPTS);
 
@@ -38,11 +43,18 @@ const MyMap = function F() {
     width: "90%",
   };
 
-  function submitGuess() {
-    // If no remaining guesses send to lose screen
-    if (remainingAttempts <= 0) {
-      console.log("You Lose");
+  useEffect(() => {
+    if (remainingAttempts === 0) {
+      console.log("You lose");
     }
+  }, [remainingAttempts]);
+
+  function backToMain() {
+    router.push("/");
+  }
+
+  function submitGuess() {
+    setButtonClickable(false);
 
     // Increment attempts
     setRemainingAttempts(remainingAttempts - 1);
@@ -59,7 +71,10 @@ const MyMap = function F() {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     const user = getUser(localStorage);
-    if (!user) return;
+    if (!user) {
+      setButtonClickable(true);
+      return;
+    }
     const { username, password } = user;
     const body = JSON.stringify({
       username,
@@ -80,6 +95,8 @@ const MyMap = function F() {
     } else {
       console.log("Try again");
     }
+
+    setButtonClickable(true);
   }
 
   if (isLoaded) {
@@ -121,21 +138,44 @@ const MyMap = function F() {
           <div className="text-center font-bold text-4xl">Loading ...</div>
         )}
 
-        <div>
-          <p>Remaining Attempts: {remainingAttempts}</p>
-          <div className="rounded-full bg-blue-700"></div>
-          <div className="rounded-full"></div>
-          <div className="rounded-full"></div>
+        <div className="flex">
+          <p>Remaining Attempts</p>
+          <div
+            className={remainingAttempts >= 3 ? "attempt-left" : "attempt-used"}
+          ></div>
+          <div
+            className={remainingAttempts >= 2 ? "attempt-left" : "attempt-used"}
+          ></div>
+          <div
+            className={remainingAttempts >= 1 ? "attempt-left" : "attempt-used"}
+          ></div>
         </div>
 
         <div className="flex justify-center">
-          <Button
-            className="w-full mt-8"
-            id="imherebutton"
-            onClick={submitGuess}
-          >
-            I am here
-          </Button>
+          {remainingAttempts > 0 && (
+            <Button
+              className="w-full mt-8"
+              id="imherebutton"
+              onClick={
+                buttonClickable
+                  ? submitGuess
+                  : () => {
+                      alert("Button disabled");
+                    }
+              }
+            >
+              I am here
+            </Button>
+          )}
+          {remainingAttempts <= 0 && (
+            <Button
+              className="w-full mt-8"
+              id="imherebutton"
+              onClick={buttonClickable ? backToMain : () => {}}
+            >
+              Replay
+            </Button>
+          )}
         </div>
       </>
     );
