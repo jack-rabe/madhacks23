@@ -1,12 +1,15 @@
 import { useRouter } from "next/router";
 import { getUser } from "./leaderboard";
 import React from "react";
+import ReactPlayer from 'react-player';
+
+
 
 export default function Home() {
   const router = useRouter();
 
   return (
-    <>
+    <div className="video-wrapper">
       <div className="mainbox">
         <p className="titlegame">WISGO</p>
         <p className="titlegamemini">Explore UW Madison like never before!</p>
@@ -28,10 +31,8 @@ export default function Home() {
           }}
         ></input>
       </div>
-      <video width="100%" height="100%"  preload='auto' autoPlay controls>
-        <source src="/videos/videoslow.mp4" type="video/mp4" />
-      </video>
-    </>
+      <video src="/videos/videoslow.mp4" preload='auto' autoPlay loop muted />
+    </div>
   );
 }
 
