@@ -4,7 +4,7 @@ import { defineUser, getUser, connectToMongo } from "./user/create";
 import { UserLocation } from "../testing";
 import { defineLocation } from "./location/create";
 
-type Data = { distance: number } | { error: string };
+type Data = { distance: number; guessesLeft: number } | { error: string };
 
 export default async function handler(
   req: NextApiRequest,
@@ -32,13 +32,14 @@ export default async function handler(
     answer.longitude
   );
   // decrement number of guesses left
-  await User.findOneAndUpdate(
+  const user = await User.findOneAndUpdate(
     { username: username, password: password },
     { $inc: { guessesLeft: -1 } }
   );
 
   mongoose.connection.close();
-  res.status(200).json({ distance: distance });
+  // @ts-ignore
+  res.status(200).json({ distance: distance, attempts: user.guessesLeft });
 }
 
 async function validateUserAgainstDB({

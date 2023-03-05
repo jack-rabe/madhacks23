@@ -55,9 +55,12 @@ const MyMap = function F() {
       method: "POST",
       body: body,
     });
-    const distance_left = (await res.json()).distance;
+    const data = await res.json();
+    const attempts = data.attempts;
+    const distance = data.distance;
+    console.log(attempts);
 
-    if (distance_left < 10) {
+    if (distance < 10) {
       console.log("You win");
     } else {
       console.log("Try again");
