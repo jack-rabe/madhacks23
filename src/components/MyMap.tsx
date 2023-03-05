@@ -136,11 +136,12 @@ const MyMap = function F() {
       <>
         {winLoaded ? (
           <div>
-            <div className="font-bold text-4xl navbar bg-red-900 mb-8" style={{ borderBottom: "8px double", borderBottomColor: "#adadad"}}>
-              <div className="flex justify-center">
-                <div className="text-5xl font-white m-2" style={{ color: "#f7f7f7"}}>WisGo</div>
+            <div className="font-bold text-4xl navbar rounded-lg bg-red-900 mb-8 flex justify-between">
+
+                <div className="text-4xl font-white m-3">WisGo</div>
+                <div>
                 <div
-                  className={`${
+                  className={` ${
                     remainingAttempts >= 3 ? "attempt-left" : "attempt-used"
                   }`}
                 ></div>
@@ -150,7 +151,7 @@ const MyMap = function F() {
                   }`}
                 ></div>
                 <div
-                  className={` ${
+                  className={`${
                     remainingAttempts >= 1 ? "attempt-left" : "attempt-used"
                   }`}
                 ></div>
