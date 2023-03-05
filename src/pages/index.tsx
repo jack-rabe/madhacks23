@@ -17,7 +17,10 @@ export default function Home() {
           className="buttontext"
           onClick={() => {
             if (localStorage.getItem("username")) router.push("/play");
-            else alert("You must enter a username first");
+            else
+              alert(
+                "If you entered a username, your account is being created now"
+              );
           }}
         >
           PLAY
