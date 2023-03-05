@@ -136,7 +136,7 @@ const MyMap = function F() {
       <>
         {winLoaded ? (
           <div>
-            <div className="font-bold text-4xl navbar rounded-lg bg-red-900 mb-8 flex justify-between">
+            <div className="font-bold text-4xl navbar bg-red-900 mb-6 flex justify-between">
 
                 <div className="text-4xl font-white m-3">WisGo</div>
                 <div>
