@@ -64,6 +64,7 @@ const MyMap = () => {
           mapContainerStyle={mapContainerStyle}
         >
           <StreetViewPanorama
+            // @ts-ignore
             position={{ lat: lat, lng: long }}
             visible={true}
             onLoad={() => {
