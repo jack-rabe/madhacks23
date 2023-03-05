@@ -48,10 +48,11 @@ export type UserLocation = { latitude: number; longitude: number };
 
 // submits a guess for a user
 async function guess(location: UserLocation) {
-  const { username, password } = getUser(localStorage);
+  const user = getUser(localStorage);
+  if (!user) return;
   const body = JSON.stringify({
-    username,
-    password,
+    username: user.username,
+    password: user.password,
     location: location,
   });
   const data = await fetch("/api/guess", {

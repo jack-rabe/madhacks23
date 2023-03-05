@@ -58,7 +58,9 @@ const MyMap = function F() {
   async function changeCoords(position: any) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    const { username, password } = getUser(localStorage);
+    const user = getUser(localStorage);
+    if (!user) return;
+    const { username, password } = user;
     const body = JSON.stringify({
       username,
       password,
@@ -68,24 +70,23 @@ const MyMap = function F() {
       method: "POST",
       body: body,
     });
-    const distance_left = await res.json();
+    const data = await res.json();
+    const attempts = data.attempts;
+    const distance = data.distance;
+    console.log(attempts);
 
-    if (distance_left < 10) {
+    if (distance < 10) {
       console.log("You win");
     } else {
       console.log("Try again");
-      console.log(distance_left);
     }
   }
 
   if (isLoaded) {
     return (
       <>
-        <div className="font-bold text-4xl navbar bg-primary mb-8">
-          WisGo logo
-        </div>
-
-        {winLoaded && (
+        <div className="font-bold text-4xl navbar bg-primary mb-8">WisGo</div>
+        {winLoaded ? (
           <div className="flex justify-center items-center">
             <GoogleMap
               zoom={15}
@@ -116,6 +117,8 @@ const MyMap = function F() {
               />
             </GoogleMap>
           </div>
+        ) : (
+          <div className="text-center font-bold text-4xl">Loading ...</div>
         )}
 
         <div>
