@@ -43,6 +43,10 @@ const MyMap = function F() {
     width: "90%",
   };
 
+  function backToMain() {
+    router.push("/");
+  }
+
   function submitGuess() {
     setButtonClickable(false);
 
