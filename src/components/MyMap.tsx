@@ -20,8 +20,8 @@ const MyMap = function F() {
     async function fetchWinningCoords() {
       const res = await fetch("/api/location/winner");
       const { latitude, longitude } = (await res.json()).winner;
-      setWinLat(latitude);
-      setWinLong(longitude);
+      //   setWinLat(latitude);
+      //   setWinLong(longitude);
       setWinLoaded(true);
     }
     fetchWinningCoords();
@@ -96,6 +96,7 @@ const MyMap = function F() {
                   linksControl: false,
                   enableCloseButton: false,
                   motionTrackingControl: true,
+                  addressControl: false,
                 }}
               />
             </GoogleMap>

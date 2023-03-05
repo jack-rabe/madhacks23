@@ -10,6 +10,11 @@ body {
   font-family: "CustomFont", sans-serif;
 }
 
+.gmnoprint,
+.gm-style-cc {
+  display: none;
+}
+
 #custom {
   color: red;
 }
