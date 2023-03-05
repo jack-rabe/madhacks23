@@ -1,38 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Play the game
+https://wisgo.tech
+Works much better on mobile device.
 
-## Getting Started
+## Inspiration
+In our everyday lives, we tend to get stuck in our daily routing, commutes and classes. 
+We want to a game that encourage students to explore the UW campus more. More specifically, we students to actually GO OUTSIDE to NEW PLACES!
 
-First, run the development server:
+## What it does
+Its simple web based game that uses the player's location to check if the player has reached the desired location of exploration.
+#### How to start the game:
+- Go to wisgo.tech
+- Enter a username
+- Hit play
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+#### Rules:
+From here, the player is shown a Google Maps Street View interactive image of a random location on the UW campus. The player's task to find that location and physically go there. Once the player feels confident that they are at the location, they can submit their guess, and see how close they were. The closer you are, the more points you get.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### How data is stored
+We use MongoDB to store target location coordinates (latitude and longitude). And we use the player's localStorage to save their usernames and the number of guesses they have made. The usernames are also persisted to the MongoDB so we can have a leaderboard.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## How we built it
+#### Frontend
+- React
+- Tailwind CSS
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+#### Backend and APIs
+- NextJS
+- Google Maps API
+- Geolocation API
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+#### Database
+- MongoDB 
 
-To learn more about Next.js, take a look at the following resources:
+## Challenges we ran into
+- Getting the StreetViewPanorama component to render with React was tricky.
+- We are not front-end devs, so styling the website was challenging for us.
+- Getting an accurate distance between the user location and target location 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Accomplishments that we're proud of
+- Hosting a web server, and getting a custom URL to work
+- Getting a video for the background of our main page
+- Successfully integrating Google Maps API street view within our website
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## What we learned
+- NextJS and React
+- Tailwind CSS
+- MongoDB
+- How to host a website and get a custom domain name
+- How to use Google Maps API
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## What's next for WisGo
+- Clean up the UI 
+- Add more campus locations in the database
+- Do better checking for usernames (make sure they are appropriate)
+- Better error  handling
+- Improve distance calculation
