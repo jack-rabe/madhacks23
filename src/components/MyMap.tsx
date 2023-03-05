@@ -104,7 +104,6 @@ const MyMap = function F() {
   if (isLoaded) {
     return (
       <>
-        <div className="font-bold text-4xl navbar bg-primary mb-8">WisGo</div>
         {winLoaded ? (
           <div className="flex justify-center items-center">
             <GoogleMap
