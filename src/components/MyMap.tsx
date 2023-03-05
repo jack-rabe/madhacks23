@@ -1,4 +1,5 @@
-import { use, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
+import ScoreTracker from "./ScoreTracker";
 import { getUser } from "../pages/leaderboard";
 import { Button } from "react-bootstrap";
 import {
@@ -6,6 +7,8 @@ import {
   StreetViewPanorama,
   useLoadScript,
 } from "@react-google-maps/api";
+
+const MAX_ATTEMPTS = 3;
 
 const MyMap = function F() {
   const { isLoaded } = useLoadScript({
@@ -16,14 +19,17 @@ const MyMap = function F() {
   const [winLng, setWinLong] = useState(-89.4125);
   const [winLoaded, setWinLoaded] = useState(false);
 
+  const [remainingAttempts, setRemainingAttempts] = useState(MAX_ATTEMPTS);
+
   useEffect(() => {
     async function fetchWinningCoords() {
       const res = await fetch("/api/location/winner");
       const { latitude, longitude } = (await res.json()).winner;
-      //   setWinLat(latitude);
-      //   setWinLong(longitude);
+      setWinLat(latitude);
+      setWinLong(longitude);
       setWinLoaded(true);
     }
+
     fetchWinningCoords();
   }, []);
 
@@ -33,6 +39,15 @@ const MyMap = function F() {
   };
 
   function submitGuess() {
+    // If no remaining guesses send to lose screen
+    if (remainingAttempts <= 0) {
+      console.log("You Lose");
+    }
+
+    // Increment attempts
+    setRemainingAttempts(remainingAttempts - 1);
+
+    // Send the guess location to backend
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(changeCoords);
     } else {
@@ -89,9 +104,9 @@ const MyMap = function F() {
                 onPositionChanged={() => {
                   console.log("Position changed");
                 }}
-                onPovChanged={() => {
-                  console.log("POV changed");
-                }}
+                // onPovChanged={() => {
+                //   console.log("POV changed");
+                // }}
                 options={{
                   linksControl: false,
                   enableCloseButton: false,
@@ -103,10 +118,18 @@ const MyMap = function F() {
           </div>
         )}
 
+        <div>
+          <p>Remaining Attempts: {remainingAttempts}</p>
+          <div className="rounded-full bg-blue-700"></div>
+          <div className="rounded-full"></div>
+          <div className="rounded-full"></div>
+        </div>
+
         <div className="flex justify-center">
           <Button
+            className="w-full mt-8"
+            id="imherebutton"
             onClick={submitGuess}
-            className="w-full mt-8 mx-3 bg-blue-700 border-5 border-rose-600"
           >
             I am here
           </Button>
