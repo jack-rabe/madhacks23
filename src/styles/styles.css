@@ -14,15 +14,3 @@
     justify-content: center;
     align-items: center;
   }
-.mainbox{
-    box-sizing: border-box;
-
-    position: absolute;
-    width: 310px;
-    height: 142px;
-    right: 40px;
-    bottom: 509px;
-
-    background: #C5050C;
-    border-radius: 6px;
-}

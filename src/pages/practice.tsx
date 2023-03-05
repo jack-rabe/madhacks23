@@ -1,3 +1,10 @@
+import React from 'react';
+
+
 export default function Home() {
-    return <p id='custom'>Hello practice</p>
+  return (
+    <div className="mainbox">
+      <p>Hello, world!</p>
+    </div>
+  );
 }
