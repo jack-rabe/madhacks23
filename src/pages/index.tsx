@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 
+
+
 export default function Home() {
   const router = useRouter();
 
@@ -15,6 +17,9 @@ export default function Home() {
           PLAY
         </p>
       </div>
+      <video width="100%" height="100%"  preload='auto'>
+        <source src="/videos/videoslow.mp4" type="video/mp4" />
+      </video>
     </div>
   );
 }
