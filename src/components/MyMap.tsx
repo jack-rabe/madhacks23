@@ -43,7 +43,9 @@ const MyMap = function F() {
   async function changeCoords(position: any) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    const { username, password } = getUser(localStorage);
+    const user = getUser(localStorage);
+    if (!user) return;
+    const { username, password } = user;
     const body = JSON.stringify({
       username,
       password,
@@ -53,13 +55,12 @@ const MyMap = function F() {
       method: "POST",
       body: body,
     });
-    const distance_left = await res.json();
+    const distance_left = (await res.json()).distance;
 
     if (distance_left < 10) {
       console.log("You win");
     } else {
       console.log("Try again");
-      console.log(distance_left);
     }
   }
 

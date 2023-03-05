@@ -6,7 +6,7 @@ export default function Leaderboard() {
   const [loaded, setLoaded] = useState(false);
   let currentUser: null | User = null;
   if (typeof window != "undefined") {
-    currentUser = getUser(localStorage);
+    currentUser = getUser(localStorage)!;
   }
 
   useEffect(() => {
@@ -70,11 +70,12 @@ export async function getAllUsers() {
 }
 
 // TODO - throw error or make user create an account if missing username or password
-export function getUser(storage: Storage): User {
-  const username = storage.getItem("username") || "missing";
-  const password = storage.getItem("password") || "missing";
+export function getUser(storage: Storage): User | undefined {
+  const username = storage.getItem("username");
+  const password = storage.getItem("password");
   if (!username || !password) {
     console.error("username or password not set");
+    return undefined;
   }
   return { username: username, password: password };
 }

@@ -16,6 +16,14 @@ export default async function handler(
   const locationGuess = JSON.parse(req.body).location as UserLocation;
 
   await connectToMongo(res);
+  // ensure the user has the correct credentials
+  if (
+    !(await validateUserAgainstDB({ username: username!, password: password! }))
+  ) {
+    mongoose.connection.close();
+    res.status(404).json({ error: "incorrect credentials" });
+  }
+
   const answer = await UserLocation.findOne();
   const distance = getDistance(
     locationGuess.latitude,
@@ -33,6 +41,18 @@ export default async function handler(
   res.status(200).json({ distance: distance });
 }
 
+async function validateUserAgainstDB({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}) {
+  const User = defineUser();
+  const user = await User.findOne({ username: username, password: password });
+  console.log(user);
+  return user;
+}
 // see https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
 function getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
   var R = 6371; // Radius of the earth in km
