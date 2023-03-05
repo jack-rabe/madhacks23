@@ -12,7 +12,5 @@ export default async function handler(
   const winner = await UserLocation.findOne();
 
   mongoose.connection.close();
-  res
-    .status(200)
-    .json({ winner: { latitude: 43.073382, longitude: -89.406353 } });
+  res.status(200).json({ winner: winner });
 }
