@@ -94,7 +94,7 @@ const MyMap = function F() {
       console.log("Try again");
     }
     if (remainingAttempts === 1) {
-      router.push(`/leaderboard?{distance}`);
+      router.push(`/leaderboard?${distance}`);
     }
 
     setButtonClickable(true);
@@ -104,8 +104,7 @@ const MyMap = function F() {
   if (buttonClickable) {
     button = (
       <Button
-        className="w-full mt-8"
-        id="imherebutton"
+        className="w-full mt-8 rounded-lg bg-red-800"
         onClick={
           buttonClickable
             ? submitGuess
@@ -114,24 +113,15 @@ const MyMap = function F() {
               }
         }
       >
-        Guess using your current location
-      </Button>
-    );
-  } else if (remainingAttempts <= 0) {
-    button = (
-      <Button
-        className="w-full mt-8"
-        id="imherebutton"
-        onClick={() => router.push("/")}
-      >
-        Replay
+        {remainingAttempts >= 3
+          ? "Guess using your current location"
+          : `You are ${distanceRemaining}m away!`}
       </Button>
     );
   } else {
     button = (
       <Button
-        className="w-full mt-8"
-        id="imherebutton"
+        className="w-full mt-8 bg-red-800"
         onClick={() => {
           alert("Calculating distance from last guess...");
         }}
@@ -146,31 +136,24 @@ const MyMap = function F() {
       <>
         {winLoaded ? (
           <div>
-            <div className="font-bold text-4xl navbar bg-primary mb-8">
+            <div className="font-bold text-4xl navbar rounded-lg bg-red-800 mb-8">
               <div className="flex justify-center">
-                <div className="text-lg font-white m-3">Remaining Attempts</div>
+                <div className="text-4xl font-white m-3">WisGo</div>
                 <div
-                  className={`m-2 ${
+                  className={`m-2 border-4 border-gray-800 ${
                     remainingAttempts >= 3 ? "attempt-left" : "attempt-used"
                   }`}
                 ></div>
                 <div
-                  className={`m-2 ${
+                  className={`m-2 border-4 border-gray-800 ${
                     remainingAttempts >= 2 ? "attempt-left" : "attempt-used"
                   }`}
                 ></div>
                 <div
-                  className={`m-2 ${
+                  className={`m-2 border-4 border-gray-800  ${
                     remainingAttempts >= 1 ? "attempt-left" : "attempt-used"
                   }`}
                 ></div>
-                <div>
-                  {distanceRemaining != null && (
-                    <div className="text-lg font-white m-3">
-                      You are {distanceRemaining}m away!
-                    </div>
-                  )}
-                </div>
               </div>
             </div>
             <div className="flex justify-center items-center">
@@ -185,8 +168,6 @@ const MyMap = function F() {
                   visible={true}
                   onLoad={() => {
                     console.log("Street View loaded");
-                    console.log(winLat);
-                    console.log(winLng);
                   }}
                   onPositionChanged={() => {
                     console.log("Position changed");
