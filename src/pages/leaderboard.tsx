@@ -52,9 +52,9 @@ export default function Leaderboard() {
       <div className="w-3/4 mx-auto rounded-md flex hover:bg-red-900 bg-red-800 my-1 px-4 text-black border-2 border-black">
         <>#</>
         <div className="divider divider-horizontal h-100"></div>
-        <>Name</>
-        <div className="divider divider-horizontal h-100"></div>
-        <>Score</>
+        <div className="w-32">Name</div>
+        <div className="divider divider-horizontal h-100 px-0" style={{marginRight : "6px"}}></div>
+        <div className="w-9">Score</div>
       </div>
       <div className="flex flex-col items-center">{userCards}</div>
     </>
@@ -81,8 +81,8 @@ function PlayerCard({
       <div className="w-2">{number}.</div>
       <div className="divider divider-horizontal h-100"></div>
       <div className="w-32">{name}</div>
-      <div className="divider divider-horizontal h-100"></div>
-      <div className="w-4">{score}</div>
+      <div className="divider divider-horizontal h-100 "></div>
+      <div className="w-4 ">{score}</div>
     </div>
   );
 }
