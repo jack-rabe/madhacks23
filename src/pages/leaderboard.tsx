@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import { User } from "./api/user/create";
 
 export default function Leaderboard() {
@@ -32,31 +33,36 @@ export default function Leaderboard() {
     );
   }
   let cardNum = 0;
-  const userCards = users.map((user) => {
+  const userCards = users.splice(0, 10).map((user) => {
     cardNum++;
     return (
-      <PlayerCard
-        key={cardNum}
-        number={cardNum}
-        name={user.username}
-        score={user.score || 0}
-        isCurrent={user.username === currentUser!.username}
-      />
+      <Row>
+        <PlayerCard
+          key={cardNum}
+          number={cardNum}
+          name={user.username}
+          score={user.score || 0}
+          isCurrent={user.username === currentUser!.username}
+        />
+      </Row>
     );
   });
   return (
     <>
-      <h1 className="text-center text-4xl m-3 font-bold text-red-800" style={{color : "#f7f7f7"}}>
+      <h1
+        className="text-center text-4xl m-3 font-bold text-red-800"
+        style={{ color: "#f7f7f7" }}
+      >
         Leaderboard
       </h1>
-      <div className="w-3/4 mx-auto rounded-md flex hover:bg-red-900 bg-red-800 my-1 px-4 text-black border-2 border-black">
-        <>#</>
-        <div className="divider divider-horizontal h-100"></div>
-        <>Name</>
-        <div className="divider divider-horizontal h-100"></div>
-        <>Score</>
-      </div>
-      <div className="flex flex-col items-center">{userCards}</div>
+      <Container fluid>
+        <Row className="w-3/4 mx-auto rounded-md flex hover:bg-red-900 bg-red-800 my-1 px-4 text-black border-2 border-black">
+          <Col>Position</Col>
+          <Col>Name</Col>
+          <Col>Score</Col>
+        </Row>
+        {userCards}
+      </Container>
     </>
   );
 }
@@ -73,17 +79,13 @@ function PlayerCard({
   number: number;
 }) {
   return (
-    <div
-      className={`rounded-md flex hover:bg-red-900 bg-red-800 m-1 px-4 text-black w-3/4 border-2 border-black ${
-        isCurrent ? "text-white border-white" : ""
-      }`}
-    >
-      <div className="w-2">{number}.</div>
-      <div className="divider divider-horizontal h-100"></div>
-      <div className="w-32">{name}</div>
-      <div className="divider divider-horizontal h-100"></div>
-      <div className="w-4">{score}</div>
-    </div>
+    <>
+      <Row className="w-3/4 mx-auto rounded-md flex hover:bg-red-900 bg-red-800 my-1 px-4 text-black border-2 border-black">
+        <Col>{number}</Col>
+        <Col>{name}</Col>
+        <Col>{score}</Col>
+      </Row>
+    </>
   );
 }
 
