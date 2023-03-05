@@ -11,11 +11,9 @@ const MyMap = () => {
     const [long, setLong] = useState(-89.4125);
 
     const mapContainerStyle = {
-        height: "100vh",
+        height: "50vh",
         width: "90%"
     };
-      
-
 
     function getLocation() {
         if (navigator.geolocation) {
@@ -55,8 +53,7 @@ const MyMap = () => {
     }
     else{
         return <p>Loading Google Maps API...</p>
-    }
-    
+    }    
 }
 
 export default MyMap;
