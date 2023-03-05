@@ -24,12 +24,13 @@ export default function Home() {
         >
           PLAY
         </p>
-        <input
+        <input 
+          placeholder="Input username here..."
           className="input"
           onBlur={(e) => {
             if (!localStorage.getItem("username")) createUser(e.target.value);
           }}
-        ></input>
+        ></input >
       </div>
       <video src="/videos/videoslow.mp4" preload='auto' autoPlay loop muted />
     </div>
