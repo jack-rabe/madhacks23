@@ -1,5 +1,20 @@
-import MyMap from "../components/MyMap";
+import { useRouter } from "next/router";
+import React from "react";
 
 export default function Home() {
-  return <><MyMap></MyMap></>
+  const router = useRouter();
+
+  return (
+    <div>
+      <div className="mainbox">
+        <p className="titlegame">WISGO</p>
+        <p className="titlegamemini">Explore UW Madison like never before!</p>
+      </div>
+      <div className="buttonplay">
+        <p className="buttontext" onClick={() => router.push("/play")}>
+          PLAY
+        </p>
+      </div>
+    </div>
+  );
 }
