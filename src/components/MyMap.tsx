@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { getUser } from "../pages/leaderboard";
 import { Button } from "react-bootstrap";
 import {
@@ -7,13 +7,25 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 
-const MyMap = () => {
+const MyMap = function F() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyB5Ze47MCUqSpm6JwVHGjwbeUsOlPrpAO0",
   });
 
-  const [lat, setLat] = useState(43.0766);
-  const [long, setLong] = useState(-89.4125);
+  const [winLat, setWinLat] = useState(43.0766);
+  const [winLng, setWinLong] = useState(-89.4125);
+  const [winLoaded, setWinLoaded] = useState(false);
+
+  useEffect(() => {
+    async function fetchWinningCoords() {
+      const res = await fetch("/api/location/winner");
+      const { latitude, longitude } = (await res.json()).winner;
+      setWinLat(latitude);
+      setWinLong(longitude);
+      setWinLoaded(true);
+    }
+    fetchWinningCoords();
+  }, []);
 
   const streetViewContainerStyle = {
     height: "70vh",
@@ -41,10 +53,14 @@ const MyMap = () => {
       method: "POST",
       body: body,
     });
-    const data = await res.json();
-    console.log(data);
-    setLat(latitude);
-    setLong(longitude);
+    const distance_left = await res.json();
+
+    if (distance_left < 10) {
+      console.log("You win");
+    } else {
+      console.log("Try again");
+    }
+    //console.log(distance_left);
   }
 
   if (isLoaded) {
@@ -53,33 +69,39 @@ const MyMap = () => {
         <div className="font-bold text-4xl navbar bg-primary mb-8">
           WisGo logo
         </div>
-        <div className="flex justify-center items-center">
-          <GoogleMap
-            zoom={15}
-            center={{ lat: lat, lng: long }}
-            mapContainerStyle={streetViewContainerStyle}
-          >
-            <StreetViewPanorama
-              // @ts-ignore
-              position={{ lat: lat, lng: long }}
-              visible={true}
-              onLoad={() => {
-                console.log("Street View loaded");
-              }}
-              onPositionChanged={() => {
-                console.log("Position changed");
-              }}
-              onPovChanged={() => {
-                console.log("POV changed");
-              }}
-              options={{
-                linksControl: false,
-                enableCloseButton: false,
-                motionTrackingControl: true,
-              }}
-            />
-          </GoogleMap>
-        </div>
+
+        {winLoaded && (
+          <div className="flex justify-center items-center">
+            <GoogleMap
+              zoom={15}
+              center={{ lat: winLat, lng: winLng }}
+              mapContainerStyle={streetViewContainerStyle}
+            >
+              <StreetViewPanorama
+                // @ts-ignore
+                position={{ lat: winLat, lng: winLng }}
+                visible={true}
+                onLoad={() => {
+                  console.log("Street View loaded");
+                  console.log(winLat);
+                  console.log(winLng);
+                }}
+                onPositionChanged={() => {
+                  console.log("Position changed");
+                }}
+                onPovChanged={() => {
+                  console.log("POV changed");
+                }}
+                options={{
+                  linksControl: false,
+                  enableCloseButton: false,
+                  motionTrackingControl: true,
+                }}
+              />
+            </GoogleMap>
+          </div>
+        )}
+
         <div className="flex justify-center">
           <Button
             onClick={submitGuess}
