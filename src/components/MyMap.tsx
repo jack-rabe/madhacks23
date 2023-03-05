@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import ScoreTracker from "./ScoreTracker";
+import { useEffect, useState } from "react";
 import { getUser } from "../pages/leaderboard";
 import { Button } from "react-bootstrap";
 import {
