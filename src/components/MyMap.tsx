@@ -55,7 +55,9 @@ const MyMap = function F() {
 
     // Send the guess location to backend
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(changeCoords);
+      navigator.geolocation.getCurrentPosition(changeCoords, null, {
+        enableHighAccuracy: true,
+      });
     } else {
       alert("Geolocation is not supported by this browser.");
     }
