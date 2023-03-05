@@ -14,6 +14,10 @@ export default function Leaderboard() {
       const fetchedUsers = await getAllUsers();
       setLoaded(true);
       setUsers(fetchedUsers);
+      const distance = window.location.href.split("?")[1];
+      if (distance) {
+        alert(`Good job, you were ${distance} meters away :)`);
+      }
     }
     fetchUsers();
   }, []);

@@ -94,7 +94,7 @@ const MyMap = function F() {
       console.log("Try again");
     }
     if (remainingAttempts === 1) {
-      router.push("/leaderboard");
+      router.push(`/leaderboard?{distance}`);
     }
 
     setButtonClickable(true);
