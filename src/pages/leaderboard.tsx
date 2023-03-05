@@ -43,16 +43,14 @@ export default function Leaderboard() {
       <h1 className="text-center text-4xl m-3 font-bold text-red-800">
         Leaderboard
       </h1>
-      <div className="mx-auto rounded-md flex hover:bg-red-900 justify-center bg-red-800 my-1 px-4 text-black w-3/4 ">
+      <div className="w-3/4 mx-auto rounded-md flex hover:bg-red-900 bg-red-800 my-1 px-4 text-black">
         <>Position</>
         <div className="divider divider-horizontal h-100"></div>
         <>Name</>
         <div className="divider divider-horizontal h-100"></div>
         <>Score</>
       </div>
-      <div className="flex flex-col items-center overflow-scroll">
-        {userCards}
-      </div>
+      <div className="flex flex-col items-center">{userCards}</div>
     </>
   );
 }
@@ -70,15 +68,15 @@ function PlayerCard({
 }) {
   return (
     <div
-      className={`rounded-md flex hover:bg-red-900 justify-center bg-red-800 m-1 px-4 text-black ${
+      className={`rounded-md flex hover:bg-red-900 bg-red-800 m-1 px-4 text-black w-3/4 ${
         isCurrent ? "text-white" : ""
       }`}
     >
-      <>{number}.</>
+      <div className="w-2">{number}.</div>
       <div className="divider divider-horizontal h-100"></div>
-      <>{name}</>
+      <div className="w-32">{name}</div>
       <div className="divider divider-horizontal h-100"></div>
-      <>{score}</>
+      <div className="w-4">{score}</div>
     </div>
   );
 }
