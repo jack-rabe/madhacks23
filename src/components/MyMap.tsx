@@ -114,7 +114,17 @@ const MyMap = function F() {
               }
         }
       >
-        I am here
+        Guess using your current location
+      </Button>
+    );
+  } else if (remainingAttempts <= 0) {
+    button = (
+      <Button
+        className="w-full mt-8"
+        id="imherebutton"
+        onClick={() => router.push("/")}
+      >
+        Replay
       </Button>
     );
   } else {
@@ -136,6 +146,33 @@ const MyMap = function F() {
       <>
         {winLoaded ? (
           <div>
+            <div className="font-bold text-4xl navbar bg-primary mb-8">
+              <div className="flex justify-center">
+                <div className="text-lg font-white m-3">Remaining Attempts</div>
+                <div
+                  className={`m-2 ${
+                    remainingAttempts >= 3 ? "attempt-left" : "attempt-used"
+                  }`}
+                ></div>
+                <div
+                  className={`m-2 ${
+                    remainingAttempts >= 2 ? "attempt-left" : "attempt-used"
+                  }`}
+                ></div>
+                <div
+                  className={`m-2 ${
+                    remainingAttempts >= 1 ? "attempt-left" : "attempt-used"
+                  }`}
+                ></div>
+                <div>
+                  {distanceRemaining != null && (
+                    <div className="text-lg font-white m-3">
+                      You are {distanceRemaining}m away!
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
             <div className="flex justify-center items-center">
               <GoogleMap
                 zoom={15}
@@ -166,38 +203,11 @@ const MyMap = function F() {
                 />
               </GoogleMap>
             </div>
-            <div className="flex">
-              <div className="flex justify-center items-center">
-                <p className="text-lg font-white m-3 p">Remaining Attempts</p>
-              </div>
-              <div
-                className={`m-2 ${
-                  remainingAttempts >= 3 ? "attempt-left" : "attempt-used"
-                }`}
-              ></div>
-              <div
-                className={`m-2 ${
-                  remainingAttempts >= 2 ? "attempt-left" : "attempt-used"
-                }`}
-              ></div>
-              <div
-                className={`m-2 ${
-                  remainingAttempts >= 1 ? "attempt-left" : "attempt-used"
-                }`}
-              ></div>
-            </div>
+            <div className="flex justify-center">{button}</div>
           </div>
         ) : (
           <div className="text-center font-bold text-4xl">Loading ...</div>
         )}
-
-        <div>
-          {distanceRemaining != null && (
-            <p>Distance Remaining: {distanceRemaining} m</p>
-          )}
-        </div>
-
-        <div className="flex justify-center">{button}</div>
       </>
     );
   } else {
