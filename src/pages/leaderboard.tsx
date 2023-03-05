@@ -21,10 +21,13 @@ export default function Leaderboard() {
   if (!loaded) {
     return <div>loading...</div>;
   }
+  let cardNum = 0;
   const userCards = users.map((user) => {
+    cardNum++;
     return (
       <PlayerCard
-        key={user.username}
+        key={cardNum}
+        number={cardNum}
         name={user.username}
         score={user.score || 0}
         isCurrent={user.username === currentUser!.username}
@@ -33,10 +36,19 @@ export default function Leaderboard() {
   });
   return (
     <>
-      <h1 className="text-center text-primary text-xl font-bold">
+      <h1 className="text-center text-4xl m-3 font-bold text-red-800">
         Leaderboard
       </h1>
-      {userCards}
+      <div className="mx-auto rounded-md flex hover:bg-red-900 justify-center bg-red-800 my-1 px-4 text-black w-3/4 ">
+        <>Position</>
+        <div className="divider divider-horizontal h-100"></div>
+        <>Name</>
+        <div className="divider divider-horizontal h-100"></div>
+        <>Score</>
+      </div>
+      <div className="flex flex-col items-center overflow-scroll">
+        {userCards}
+      </div>
     </>
   );
 }
@@ -45,17 +57,21 @@ function PlayerCard({
   name,
   score,
   isCurrent,
+  number,
 }: {
   name: string;
   score: number;
   isCurrent: boolean;
+  number: number;
 }) {
   return (
     <div
-      className={`rounded-md flex justify-center bg-primary m-3 w-32 px-12 ${
-        isCurrent ? "text-black" : ""
+      className={`rounded-md flex hover:bg-red-900 justify-center bg-red-800 m-1 px-4 text-black ${
+        isCurrent ? "text-white" : ""
       }`}
     >
+      <>{number}.</>
+      <div className="divider divider-horizontal h-100"></div>
       <>{name}</>
       <div className="divider divider-horizontal h-100"></div>
       <>{score}</>

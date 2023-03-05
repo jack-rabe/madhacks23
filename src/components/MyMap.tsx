@@ -70,11 +70,8 @@ const MyMap = function F() {
   if (isLoaded) {
     return (
       <>
-        <div className="font-bold text-4xl navbar bg-primary mb-8">
-          WisGo logo
-        </div>
-
-        {winLoaded && (
+        <div className="font-bold text-4xl navbar bg-primary mb-8">WisGo</div>
+        {winLoaded ? (
           <div className="flex justify-center items-center">
             <GoogleMap
               zoom={15}
@@ -105,6 +102,8 @@ const MyMap = function F() {
               />
             </GoogleMap>
           </div>
+        ) : (
+          <div className="text-center font-bold text-4xl">Loading ...</div>
         )}
 
         <div className="flex justify-center">
