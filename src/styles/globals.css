@@ -10,18 +10,19 @@ body {
   font-family: "CustomFont", sans-serif;
 }
 
+
 .attempt-left {
+  background-image: url("/videos/green.jpg");
+  background-size: cover;
   width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: green;
+  height: 70px;
 }
 
 .attempt-used {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: red;
+    background-image: url("/videos/red.jpg");
+    background-size: cover;
+    width: 50px;
+    height: 70px;
 }
 
 .circular-div {

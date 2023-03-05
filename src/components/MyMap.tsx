@@ -136,21 +136,22 @@ const MyMap = function F() {
       <>
         {winLoaded ? (
           <div>
-            <div className="font-bold text-4xl navbar rounded-lg bg-red-800 mb-8 flex justify-between">
-              <div className="text-4xl font-white m-3">WisGo</div>
-              <div>
+            <div className="font-bold text-4xl navbar bg-red-900 mb-6 flex justify-between">
+
+                <div className="text-4xl font-white m-3">WisGo</div>
+                <div>
                 <div
-                  className={`m-2 border-4 border-gray-800 ${
+                  className={` ${
                     remainingAttempts >= 3 ? "attempt-left" : "attempt-used"
                   }`}
                 ></div>
                 <div
-                  className={`m-2 border-4 border-gray-800 ${
+                  className={` ${
                     remainingAttempts >= 2 ? "attempt-left" : "attempt-used"
                   }`}
                 ></div>
                 <div
-                  className={`m-2 border-4 border-gray-800  ${
+                  className={`${
                     remainingAttempts >= 1 ? "attempt-left" : "attempt-used"
                   }`}
                 ></div>
