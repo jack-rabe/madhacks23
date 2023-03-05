@@ -138,7 +138,7 @@ const MyMap = function F() {
           <div>
             <div className="font-bold text-4xl navbar bg-red-900 mb-6 flex justify-between">
 
-                <div className="text-4xl font-white m-3">WisGo</div>
+                <div className="text-4xl font-white m-3" style={{color : "#f7f7f7"}}>WisGo</div>
                 <div>
                 <div
                   className={` ${
