@@ -14,6 +14,7 @@ export default async function handler(
     username: username,
     password: password,
     score: 0,
+    distanceTraveled: 0,
     guessesLeft: 3,
   });
 
@@ -37,6 +38,7 @@ export type User = {
   password?: string;
   score?: number;
   guessesLeft?: number;
+  distanceTraveled?: number;
 };
 
 // extract user from request body
@@ -56,6 +58,7 @@ export function defineUser() {
     password: String,
     score: Number,
     guessesLeft: Number,
+    distanceTraveled: Number,
   });
   return mongoose.models.User || mongoose.model("User", userSchema);
 }

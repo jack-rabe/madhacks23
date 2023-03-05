@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getUser } from "../pages/leaderboard";
 import { Button } from "react-bootstrap";
 import {
   GoogleMap,
@@ -20,28 +21,29 @@ const MyMap = () => {
     width: "100%",
   };
 
-  const mapContainerStyle = {
-    height: "20vh",
-    width: "100%",
-  };
-
-  function getLocation() {
+  function submitGuess() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(changeCoords);
+      const x = navigator.geolocation.getCurrentPosition(changeCoords);
     } else {
       alert("Geolocation is not supported by this browser.");
     }
   }
 
-  function changeCoords(position: any) {
+  async function changeCoords(position: any) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    console.log(
-      "Your new location is\nLatitude:",
-      latitude,
-      "\nLongitude:",
-      longitude
-    );
+    const { username, password } = getUser(localStorage);
+    const body = JSON.stringify({
+      username,
+      password,
+      location: { latitude: latitude, longitude: longitude },
+    });
+    const res = await fetch("/api/guess", {
+      method: "POST",
+      body: body,
+    });
+    const data = await res.json();
+    console.log(data);
     setLat(latitude);
     setLong(longitude);
   }
@@ -49,14 +51,17 @@ const MyMap = () => {
   if (isLoaded) {
     return (
       <>
-        {/* <h1>Google Maps</h1>
-            <p>Current location: {lat}, {long}</p> */}
+        <h1>Google Maps</h1>
+        <p>
+          Current location: {lat}, {long}
+        </p>
         <GoogleMap
           zoom={15}
           center={{ lat: lat, lng: long }}
           mapContainerStyle={streetViewContainerStyle}
         >
           <StreetViewPanorama
+            // @ts-ignore
             position={{ lat: lat, lng: long }}
             visible={true}
             onLoad={() => {
@@ -75,20 +80,13 @@ const MyMap = () => {
             }}
           />
         </GoogleMap>
-        {/* <GoogleMap
-          zoom={15}
-          center={{ lat: lat, lng: long }}
-          mapContainerStyle={mapContainerStyle}
-        >
-          <MarkerF position={{ lat: lat, lng: long }} />
-        </GoogleMap> */}
 
         <div className="flex justify-center">
           <Button
-            onClick={getLocation}
+            onClick={submitGuess}
             className="w-full mt-2 bg-blue-700 border-5 border-rose-600"
           >
-            Get Current Location
+            I am here
           </Button>
         </div>
       </>
