@@ -43,7 +43,7 @@ export default function Leaderboard() {
       <h1 className="text-center text-4xl m-3 font-bold text-red-800">
         Leaderboard
       </h1>
-      <div className="w-3/4 mx-auto rounded-md flex hover:bg-red-900 bg-red-800 my-1 px-4 text-black">
+      <div className="w-3/4 mx-auto rounded-md flex hover:bg-red-900 bg-red-800 my-1 px-4 text-black border-2 border-black">
         <>Position</>
         <div className="divider divider-horizontal h-100"></div>
         <>Name</>
@@ -68,7 +68,7 @@ function PlayerCard({
 }) {
   return (
     <div
-      className={`rounded-md flex hover:bg-red-900 bg-red-800 m-1 px-4 text-black w-3/4 ${
+      className={`rounded-md flex hover:bg-red-900 bg-red-800 m-1 px-4 text-black w-3/4 border-2 border-black${
         isCurrent ? "text-white" : ""
       }`}
     >
