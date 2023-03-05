@@ -1,4 +1,4 @@
-import { User } from "./api/user/create";
+import { getUser, getAllUsers } from "./leaderboard";
 
 export default function Test() {
   return (
@@ -12,7 +12,14 @@ export default function Test() {
       >
         submit guess
       </button>
-      <button className={"btn"} onClick={getAllUsers}>
+      <button
+        className={"btn"}
+        onClick={() => {
+          getAllUsers().then((users) => {
+            console.log(users);
+          });
+        }}
+      >
         get all users
       </button>
     </div>
@@ -27,7 +34,7 @@ async function createUser(username: string) {
 
   const data = await fetch("/api/user/create", {
     method: "POST",
-    body: JSON.stringify(getUser()),
+    body: JSON.stringify(getUser(localStorage)),
   });
   const res = await data.json();
   console.log(res);
@@ -38,7 +45,7 @@ export type UserLocation = { latitude: number; longitude: number };
 
 // submits a guess for a user
 async function guess(location: UserLocation) {
-  const { username, password } = getUser();
+  const { username, password } = getUser(localStorage);
   const body = JSON.stringify({
     username,
     password,
@@ -48,22 +55,6 @@ async function guess(location: UserLocation) {
     method: "POST",
     body: body,
   });
-  const res = await data.json();
-  console.log(res);
-}
-
-// TODO - throw error or make user create an account if missing username or password
-function getUser(): User {
-  const username = localStorage.getItem("username") || "missing";
-  const password = localStorage.getItem("password") || "missing";
-  if (!username || !password) {
-    console.error("username or password not set");
-  }
-  return { username: username, password: password };
-}
-
-async function getAllUsers() {
-  const data = await fetch("/api/user/users");
   const res = await data.json();
   console.log(res);
 }

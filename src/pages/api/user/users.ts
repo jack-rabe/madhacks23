@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectToMongo, defineUser, getUser, User } from "./create";
+import { connectToMongo, defineUser, User } from "./create";
 
 export default async function handler(
   req: NextApiRequest,

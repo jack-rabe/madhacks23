@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { defineUser, getUser, connectToMongo } from "./user";
+import { defineUser, getUser, connectToMongo } from "./user/create";
 import { UserLocation } from "../testing";
 
 type Data = { points: number } | { error: string };
