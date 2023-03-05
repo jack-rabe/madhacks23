@@ -46,7 +46,7 @@ export default function Leaderboard() {
   });
   return (
     <>
-      <h1 className="text-center text-4xl m-3 font-bold text-red-800">
+      <h1 className="text-center text-4xl m-3 font-bold text-red-800" style={{color : "#f7f7f7"}}>
         Leaderboard
       </h1>
       <div className="w-3/4 mx-auto rounded-md flex hover:bg-red-900 bg-red-800 my-1 px-4 text-black border-2 border-black">
