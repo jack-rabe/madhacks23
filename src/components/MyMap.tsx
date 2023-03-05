@@ -62,6 +62,7 @@ const MyMap = function F() {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     const user = getUser(localStorage);
+
     if (!user) {
       setButtonClickable(true);
       return;
@@ -92,6 +93,43 @@ const MyMap = function F() {
     }
 
     setButtonClickable(true);
+  }
+
+  let button;
+  if (buttonClickable) {
+    button = (
+      <Button
+        className="w-full mt-8"
+        id="imherebutton"
+        onClick={
+          buttonClickable
+            ? submitGuess
+            : () => {
+                alert("Button disabled");
+              }
+        }
+      >
+        I am here
+      </Button>
+    );
+  } else if (remainingAttempts <= 0) {
+    button = (
+      <Button className="w-full mt-8" id="imherebutton" onClick={backToMain}>
+        Replay
+      </Button>
+    );
+  } else {
+    button = (
+      <Button
+        className="w-full mt-8"
+        id="imherebutton"
+        onClick={() => {
+          alert("Button disabled");
+        }}
+      >
+        ...
+      </Button>
+    );
   }
 
   if (isLoaded) {
@@ -158,21 +196,7 @@ const MyMap = function F() {
           )}
         </div>
 
-        <div className="flex justify-center">
-          <Button
-            className="w-full mt-8"
-            id="imherebutton"
-            onClick={
-              buttonClickable
-                ? submitGuess
-                : () => {
-                    alert("Button disabled");
-                  }
-            }
-          >
-            I am here
-          </Button>
-        </div>
+        <div className="flex justify-center">{button}</div>
       </>
     );
   } else {
