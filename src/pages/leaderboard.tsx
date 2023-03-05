@@ -50,7 +50,7 @@ export default function Leaderboard() {
         Leaderboard
       </h1>
       <div className="w-3/4 mx-auto rounded-md flex hover:bg-red-900 bg-red-800 my-1 px-4 text-black border-2 border-black">
-        <>Position</>
+        <>#</>
         <div className="divider divider-horizontal h-100"></div>
         <>Name</>
         <div className="divider divider-horizontal h-100"></div>
