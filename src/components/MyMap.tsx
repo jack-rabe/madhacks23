@@ -44,16 +44,6 @@ const MyMap = function F() {
     width: "90%",
   };
 
-  useEffect(() => {
-    if (remainingAttempts === 0) {
-      console.log("You lose");
-    }
-  }, [remainingAttempts]);
-
-  function backToMain() {
-    router.push("/");
-  }
-
   function submitGuess() {
     setButtonClickable(false);
 
@@ -96,6 +86,9 @@ const MyMap = function F() {
       console.log("You win");
     } else {
       console.log("Try again");
+    }
+    if (remainingAttempts === 1) {
+      router.push("/leaderboard");
     }
 
     setButtonClickable(true);
@@ -140,15 +133,21 @@ const MyMap = function F() {
         )}
 
         <div className="flex">
-          <p>Remaining Attempts</p>
+          <p className="text-lg font-white m-3">Remaining Attempts</p>
           <div
-            className={remainingAttempts >= 3 ? "attempt-left" : "attempt-used"}
+            className={`m-2 ${
+              remainingAttempts >= 3 ? "attempt-left" : "attempt-used"
+            }`}
           ></div>
           <div
-            className={remainingAttempts >= 2 ? "attempt-left" : "attempt-used"}
+            className={`m-2 ${
+              remainingAttempts >= 2 ? "attempt-left" : "attempt-used"
+            }`}
           ></div>
           <div
-            className={remainingAttempts >= 1 ? "attempt-left" : "attempt-used"}
+            className={`m-2 ${
+              remainingAttempts >= 1 ? "attempt-left" : "attempt-used"
+            }`}
           ></div>
         </div>
 
@@ -159,30 +158,19 @@ const MyMap = function F() {
         </div>
 
         <div className="flex justify-center">
-          {remainingAttempts > 0 && (
-            <Button
-              className="w-full mt-8"
-              id="imherebutton"
-              onClick={
-                buttonClickable
-                  ? submitGuess
-                  : () => {
-                      alert("Button disabled");
-                    }
-              }
-            >
-              I am here
-            </Button>
-          )}
-          {remainingAttempts <= 0 && (
-            <Button
-              className="w-full mt-8"
-              id="imherebutton"
-              onClick={buttonClickable ? backToMain : () => {}}
-            >
-              Replay
-            </Button>
-          )}
+          <Button
+            className="w-full mt-8"
+            id="imherebutton"
+            onClick={
+              buttonClickable
+                ? submitGuess
+                : () => {
+                    alert("Button disabled");
+                  }
+            }
+          >
+            I am here
+          </Button>
         </div>
       </>
     );

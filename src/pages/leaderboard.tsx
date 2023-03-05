@@ -68,8 +68,8 @@ function PlayerCard({
 }) {
   return (
     <div
-      className={`rounded-md flex hover:bg-red-900 bg-red-800 m-1 px-4 text-black w-3/4 border-2 border-black${
-        isCurrent ? "text-white" : ""
+      className={`rounded-md flex hover:bg-red-900 bg-red-800 m-1 px-4 text-black w-3/4 border-2 border-black ${
+        isCurrent ? "text-white border-white" : ""
       }`}
     >
       <div className="w-2">{number}.</div>
