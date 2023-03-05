@@ -136,9 +136,9 @@ const MyMap = function F() {
       <>
         {winLoaded ? (
           <div>
-            <div className="font-bold text-4xl navbar rounded-lg bg-red-800 mb-8">
-              <div className="flex justify-center">
-                <div className="text-4xl font-white m-3">WisGo</div>
+            <div className="font-bold text-4xl navbar rounded-lg bg-red-800 mb-8 flex justify-between">
+              <div className="text-4xl font-white m-3">WisGo</div>
+              <div>
                 <div
                   className={`m-2 border-4 border-gray-800 ${
                     remainingAttempts >= 3 ? "attempt-left" : "attempt-used"
@@ -184,7 +184,7 @@ const MyMap = function F() {
             <div className="flex justify-center">{button}</div>
           </div>
         ) : (
-          <div className="text-center font-bold text-4xl">Loading ...</div>
+          <div className="m-3 text-center font-bold text-4xl">Loading ...</div>
         )}
       </>
     );

@@ -17,7 +17,7 @@ export default function Leaderboard() {
       const distance = window.location.href.split("?")[1];
       if (distance) {
         setTimeout(() => {
-          alert(`Good job, you were ${distance} meters away :)`);
+          alert(`Good job! you were ${distance} meters away :)`);
         }, 1000);
       }
     }
