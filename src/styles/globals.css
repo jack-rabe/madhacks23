@@ -111,7 +111,7 @@ video {
 .input{
     position: absolute;
     left: 50%;
-    top: 300%;
+    top: 75%;
     transform: translate(-50%, -50%);
     color: #c5050c;
     outline-color: #c5050c;
