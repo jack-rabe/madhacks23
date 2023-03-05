@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React from "react";
 
 export default function Home() {
   return (
@@ -9,7 +8,7 @@ export default function Home() {
         <p className="titlegamemini">Explore UW Madison like never before!</p>
       </div>
       <div className="buttonplay">
-      <p className="buttontext">PLAY</p>
+        <p className="buttontext">PLAY</p>
       </div>
     </div>
   );
