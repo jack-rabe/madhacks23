@@ -115,19 +115,13 @@ const MyMap = function F() {
         I am here
       </Button>
     );
-  } else if (remainingAttempts <= 0) {
-    button = (
-      <Button className="w-full mt-8" id="imherebutton" onClick={backToMain}>
-        Replay
-      </Button>
-    );
   } else {
     button = (
       <Button
         className="w-full mt-8"
         id="imherebutton"
         onClick={() => {
-          alert("Button disabled");
+          alert("Calculating distance from last guess...");
         }}
       >
         ...
@@ -171,7 +165,9 @@ const MyMap = function F() {
               </GoogleMap>
             </div>
             <div className="flex">
-              <p className="text-lg font-white m-3">Remaining Attempts</p>
+              <div className="flex justify-center items-center">
+                <p className="text-lg font-white m-3 p">Remaining Attempts</p>
+              </div>
               <div
                 className={`m-2 ${
                   remainingAttempts >= 3 ? "attempt-left" : "attempt-used"

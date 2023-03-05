@@ -17,9 +17,11 @@ export default async function handler(
 
   await connectToMongo(res);
   // ensure the user has the correct credentials
-  if (
-    !(await validateUserAgainstDB({ username: username!, password: password! }))
-  ) {
+  const user = await validateUserAgainstDB({
+    username: username!,
+    password: password!,
+  });
+  if (!user) {
     mongoose.connection.close();
     res.status(404).json({ error: "incorrect credentials" });
   }
@@ -32,10 +34,18 @@ export default async function handler(
     answer.longitude
   );
   // decrement number of guesses left
-  const user = await User.findOneAndUpdate(
+  await User.findOneAndUpdate(
     { username: username, password: password },
     { $inc: { guessesLeft: -1 } }
   );
+  // add score for user on last guess
+  if (user.guessesLeft === 1) {
+    const scoreBump = Math.ceil(1000 / distance);
+    await User.findOneAndUpdate(
+      { username: username, password: password },
+      { $inc: { score: scoreBump } }
+    );
+  }
 
   mongoose.connection.close();
   // @ts-ignore
