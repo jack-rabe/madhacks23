@@ -19,7 +19,11 @@ export default function Leaderboard() {
   }, []);
 
   if (!loaded) {
-    return <div>loading...</div>;
+    return (
+      <div className="flex justify-center">
+        <div className="m-3 text-4xl font-bold">Loading...</div>
+      </div>
+    );
   }
   let cardNum = 0;
   const userCards = users.map((user) => {
