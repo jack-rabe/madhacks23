@@ -29,7 +29,7 @@ export async function connectToMongo(res: NextApiResponse) {
   if (!mongo_user || !mongo_password) {
     res.status(404).json({ error: "missing mongo credentials" });
   }
-  const uri = `mongodb+srv://${mongo_user}:${mongo_password}@cluster0.bcacmvv.mongodb.net/test?retryWrites=true&w=majority`;
+  const uri = `mongodb+srv://${mongo_user}:${mongo_password}@cluster1.wkakmm1.mongodb.net/?retryWrites=true&w=majority`;
   await mongoose.connect(uri).catch((err) => console.error(err));
 }
 
