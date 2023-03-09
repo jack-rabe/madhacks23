@@ -31,59 +31,44 @@ export default function Leaderboard() {
       </div>
     );
   }
-  let cardNum = 0;
-  const userCards = users.map((user) => {
-    cardNum++;
-    return (
-      <PlayerCard
-        key={cardNum}
-        number={cardNum}
-        name={user.username}
-        score={user.score || 0}
-        isCurrent={user.username === currentUser!.username}
-      />
-    );
-  });
+  let userNum = 0;
+
   return (
     <>
-      <h1 className="text-center text-4xl m-3 font-bold text-red-800" style={{color : "#f7f7f7"}}>
+      <h1 className="text-center text-4xl m-3 font-bold text-white">
         Leaderboard
       </h1>
-      <div className="w-3/4 mx-auto rounded-md flex hover:bg-red-900 bg-red-800 my-1 px-4 text-black border-2 border-black">
-        <>#</>
-        <div className="divider divider-horizontal h-100"></div>
-        <div className="w-32">Name</div>
-        <div className="divider divider-horizontal h-100 px-0" style={{marginRight : "6px"}}></div>
-        <div className="w-9">Score</div>
+      <div className="overflow-x-auto">
+        <table className="table w-4/5 m-auto border-4 border-red-800">
+          <thead>
+            <tr>
+              <th className="text-center">Place</th>
+              <th className="text-center">Name</th>
+              <th className="text-center">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => {
+              userNum++;
+              return (
+                <tr
+                  key={userNum}
+                  className={
+                    user.username === currentUser?.username
+                      ? "active font-bold"
+                      : ""
+                  }
+                >
+                  <td className="text-center">{userNum}</td>
+                  <td className="text-center">{user.username}</td>
+                  <td className="text-center">{user.score}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
-      <div className="flex flex-col items-center">{userCards}</div>
     </>
-  );
-}
-
-function PlayerCard({
-  name,
-  score,
-  isCurrent,
-  number,
-}: {
-  name: string;
-  score: number;
-  isCurrent: boolean;
-  number: number;
-}) {
-  return (
-    <div
-      className={`rounded-md flex hover:bg-red-900 bg-red-800 m-1 px-4 text-black w-3/4 border-2 border-black ${
-        isCurrent ? "text-white border-white" : ""
-      }`}
-    >
-      <div className="w-2">{number}.</div>
-      <div className="divider divider-horizontal h-100"></div>
-      <div className="w-32">{name}</div>
-      <div className="divider divider-horizontal h-100 "></div>
-      <div className="w-4 ">{score}</div>
-    </div>
   );
 }
 
